@@ -1,4 +1,4 @@
-# lei-carousel
+# lei-carousel 🌸💮🏵️🌺
 - by Jeff Yaus
 
 ## Overview
@@ -6,13 +6,13 @@
 _lei-carousel_ is a carousel component for React, designed to be lightweight and
 standards-compliant.
 
-Many of other carousel components are large, complex, and unwieldy.
+Many carousel components are large, complex, and unwieldy.
 They clone or rearrange DOM notes to create an infinite loop of slides, which
 can create issues when attaching handlers to the contents of those slides. 
 
 _lei-carousel_ instead leverages the native browser behavior for basic scrolling.
-When the user clicks all the way to the end of the carousel, the carousel will "rewind"
-and scroll back to the beginning. This style of "looping" eliminates the need for cloning
+Then, when the user clicks all the way to the end of the carousel, the carousel will "rewind"
+and scroll back to the beginning. This style of looping eliminates the need for cloning
 or rearranging DOM nodes.
 
 - Fast performance, using as many native browser features as possible
