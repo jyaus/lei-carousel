@@ -69,7 +69,7 @@ function App() {
           <br />
           by Jeff Yaus
         </p>
-        <a className="button" href="https://jyaus.github.io/lei-carousel">
+        <a className="button" href="https://github.com/jyaus/lei-carousel/">
           View on Github
         </a>
       </header>
@@ -180,7 +180,7 @@ function App() {
       <h2>Instructions</h2>
       <p>
         You can download it, and find more information,{" "}
-        <a href="https://jyaus.github.io/lei-carousel">via Github</a>.
+        <a href="https://github.com/jyaus/lei-carousel/">via Github</a>.
       </p>
 
       <pre className="code-block">
