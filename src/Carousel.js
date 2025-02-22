@@ -87,10 +87,6 @@ export default function Carousel({
   function scrollToNext() {
     const track = trackRef.current;
 
-    console.log(
-      currentSlide + " / " + track.scrollLeft + " ~~ " + track.offsetWidth
-    );
-
     scrollToSlide(
       currentSlide + 1 >= slides.length ||
         track.scrollLeft === track.scrollWidth - track.offsetWidth
@@ -155,9 +151,6 @@ export default function Carousel({
   useEffect(() => {
     setSlides(trackRef.current.querySelectorAll(".lei-carousel-slide"));
     checkDisabled(currentSlide);
-    setSlideAccessibleNames(
-      trackRef.current.querySelectorAll(".lei-carousel-slide")
-    );
   }, [
     buttonsInitialized,
     checkDisabled,
@@ -165,6 +158,12 @@ export default function Carousel({
     slidesToAdvance,
     children,
   ]);
+
+  useEffect(() => {
+    setSlideAccessibleNames(
+      trackRef.current.querySelectorAll(".lei-carousel-slide")
+    );
+  }, []);
 
   function CarouselDots({ slides }) {
     return (
