@@ -74,3 +74,7 @@ Which slide will be the current slide when the component initializes.
 
 _number_. (default: 1)
 How many slides will be shown at a time. Decimals are allowed.
+
+## Demo
+
+See it in action at [https://jyaus.github.io/lei-carousel/](https://jyaus.github.io/lei-carousel/).
