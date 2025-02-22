@@ -134,20 +134,6 @@ export default function Carousel({
     }
   }, [initialSlide]);
 
-  function setSlideAccessibleNames(slideNodes) {
-    slideNodes.forEach((slide, index) => {
-      if (
-        !slide.getAttribute("aria-label") &&
-        !slide.getAttribute("aria-labelledby")
-      ) {
-        slide.setAttribute(
-          "aria-label",
-          `${index + 1} ${accessibleTextSlideOf} ${slideNodes.length}`
-        );
-      }
-    });
-  }
-
   useEffect(() => {
     setSlides(trackRef.current.querySelectorAll(".lei-carousel-slide"));
     checkDisabled(currentSlide);
@@ -160,10 +146,24 @@ export default function Carousel({
   ]);
 
   useEffect(() => {
+    function setSlideAccessibleNames(slideNodes) {
+      slideNodes.forEach((slide, index) => {
+        if (
+          !slide.getAttribute("aria-label") &&
+          !slide.getAttribute("aria-labelledby")
+        ) {
+          slide.setAttribute(
+            "aria-label",
+            `${index + 1} ${accessibleTextSlideOf} ${slideNodes.length}`
+          );
+        }
+      });
+    }
+
     setSlideAccessibleNames(
       trackRef.current.querySelectorAll(".lei-carousel-slide")
     );
-  }, [setSlideAccessibleNames]);
+  }, []);
 
   function CarouselDots({ slides }) {
     return (
