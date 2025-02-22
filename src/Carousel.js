@@ -163,7 +163,7 @@ export default function Carousel({
     setSlideAccessibleNames(
       trackRef.current.querySelectorAll(".lei-carousel-slide")
     );
-  }, []);
+  }, [accessibleTextSlideOf]);
 
   function CarouselDots({ slides }) {
     return (
