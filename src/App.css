@@ -114,6 +114,10 @@ h3 + h4 {
   box-shadow: inset 0 0 15px 1px hsla(0 0 0 / 0.1);
 }
 
+.demo-content-height-100-percent {
+  height: 100%;
+}
+
 @media (max-width: 768px) {
   .demo-content {
     font-size: 1rem;

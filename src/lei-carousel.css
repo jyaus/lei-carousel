@@ -33,6 +33,10 @@
   scrollbar-width: none;
 }
 
+.lei-carousel-equalize-heights .lei-carousel-track {
+  align-items: stretch;
+}
+
 /* begin Safari < 18.2 */
 .lei-carousel-track::-webkit-scrollbar {
   width: 0;

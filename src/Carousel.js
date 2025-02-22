@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, createContext } from "react";
 import "./lei-carousel.css";
 
 /**
@@ -9,9 +9,15 @@ import "./lei-carousel.css";
  * @param {boolean} dots - Whether to show the indicator dots below the carousel.
  * @param {string} gap - How much of a gap to put between slides. You need to include a unit, e.g. "20px" and not "20".
  * @param {string} accessibleTextDot - The accessible text to be added to each dot as an aria-label value; the number of the dot/slide will be appended to the end.
+ * @param {string} accessibleTextDotsLabel - The accessible text to be added to the dots container as an aria-label value.
  * @param {string} accessibleTextNext - The accessible text to be added to the Next button as an aria-label value.
  * @param {string} accessibleTextPrevious - The accessible text to be added to the Previous button as an aria-label value.
+ * @param {string} accessibleTextRoledescription - The accessible text to be added to the carousel container as the aria-roledescription value.
+ * @param {string} accessibleTextSlideRoledescription - The accessible text to be added to each slide as the aria-roledescription value.
+ * @param {string} accessibleTextSlideOf - Part of the accessible name for each slide, placed between the current slide and the total number of slides, e.g. "X of Y".
  */
+
+export const CarouselContext = createContext();
 
 export default function Carousel({
   children,
@@ -20,9 +26,14 @@ export default function Carousel({
   finite = false,
   dots = false,
   gap,
+  equalizeHeights = false,
   accessibleTextPrevious = "Go to previous slide",
   accessibleTextNext = "Go to next slide",
   accessibleTextDot = "Go to slide",
+  accessibleTextDotsLabel = "Choose slide to display",
+  accessibleTextRoledescription = "carousel",
+  accessibleTextSlideRoledescription = "slide",
+  accessibleTextSlideOf = "of",
 }) {
   const [slides, setSlides] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0); // this one is 0-indexed because it's internal
@@ -127,9 +138,26 @@ export default function Carousel({
     }
   }, [initialSlide]);
 
+  function setSlideAccessibleNames(slideNodes) {
+    slideNodes.forEach((slide, index) => {
+      if (
+        !slide.getAttribute("aria-label") &&
+        !slide.getAttribute("aria-labelledby")
+      ) {
+        slide.setAttribute(
+          "aria-label",
+          `${index + 1} ${accessibleTextSlideOf} ${slideNodes.length}`
+        );
+      }
+    });
+  }
+
   useEffect(() => {
     setSlides(trackRef.current.querySelectorAll(".lei-carousel-slide"));
     checkDisabled(currentSlide);
+    setSlideAccessibleNames(
+      trackRef.current.querySelectorAll(".lei-carousel-slide")
+    );
   }, [
     buttonsInitialized,
     checkDisabled,
@@ -141,21 +169,29 @@ export default function Carousel({
   function CarouselDots({ slides }) {
     return (
       <>
-        <ul className="lei-carousel-dots">
-          {[...slides].map((slide, index) => (
-            <CarouselDot
-              href={"#" + slides[index].id}
-              publicIndex={index + 1}
-              isActive={index === currentSlide}
-              key={index}
-            />
-          ))}
-        </ul>
+        <div role="group" aria-label={accessibleTextDotsLabel}>
+          <ul className="lei-carousel-dots">
+            {[...slides].map((slide, index) => (
+              <CarouselDot
+                href={"#" + slides[index].id}
+                publicIndex={index + 1}
+                isActive={index === currentSlide}
+                key={index}
+                dotsLength={slides.length}
+              />
+            ))}
+          </ul>
+        </div>
       </>
     );
   }
 
-  function CarouselDot({ href = "#", isActive = false, publicIndex }) {
+  function CarouselDot({
+    href = "#",
+    isActive = false,
+    publicIndex,
+    dotsLength,
+  }) {
     return (
       <li>
         <button
@@ -163,7 +199,8 @@ export default function Carousel({
           className={
             "lei-carousel-dot " + (isActive ? "lei-carousel-dot-active" : "")
           }
-          aria-label={accessibleTextDot + " " + publicIndex}
+          aria-disabled={isActive ? "true" : null}
+          aria-label={`${accessibleTextDot} ${publicIndex} ${accessibleTextSlideOf} ${dotsLength}`}
           onClick={() => scrollToSlide(publicIndex - 1)}
         />
       </li>
@@ -172,34 +209,41 @@ export default function Carousel({
 
   return (
     <>
-      <div
-        className={"lei-carousel " + (dots && "lei-carousel-show-dots")}
-        style={{
-          "--lei-carousel-foo-slides-to-show": slidesToShow,
-        }}
-      >
-        <button
-          className="lei-carousel-button lei-carousel-button-prev "
-          disabled={prevIsDisabled}
-          aria-label={accessibleTextPrevious}
-          onClick={throttle(scrollToPrev, 100)}
-        />
-        <ol
-          className="lei-carousel-track"
-          ref={trackRef}
-          onScroll={handleScroll}
-          style={{ "--lei-carousel-track-gap": gap }}
+      <CarouselContext.Provider value={accessibleTextSlideRoledescription}>
+        <div
+          className={
+            "lei-carousel " +
+            (dots ? "lei-carousel-show-dots " : "") +
+            (equalizeHeights ? "lei-carousel-equalize-heights " : "")
+          }
+          style={{
+            "--lei-carousel-foo-slides-to-show": slidesToShow,
+          }}
+          aria-roledescription={accessibleTextRoledescription}
         >
-          {children}
-        </ol>
-        <button
-          className="lei-carousel-button lei-carousel-button-next "
-          aria-label={accessibleTextNext}
-          disabled={nextIsDisabled ? "true" : ""}
-          onClick={throttle(scrollToNext, 100)}
-        />
-        {dots && <CarouselDots slides={slides} />}
-      </div>
+          <button
+            className="lei-carousel-button lei-carousel-button-prev "
+            disabled={prevIsDisabled}
+            aria-label={accessibleTextPrevious}
+            onClick={throttle(scrollToPrev, 100)}
+          />
+          <ol
+            className="lei-carousel-track"
+            ref={trackRef}
+            onScroll={handleScroll}
+            style={{ "--lei-carousel-track-gap": gap }}
+          >
+            {children}
+          </ol>
+          <button
+            className="lei-carousel-button lei-carousel-button-next "
+            aria-label={accessibleTextNext}
+            disabled={nextIsDisabled ? "true" : ""}
+            onClick={throttle(scrollToNext, 100)}
+          />
+          {dots && <CarouselDots slides={slides} />}
+        </div>
+      </CarouselContext.Provider>
     </>
   );
 }

@@ -125,7 +125,7 @@ function App() {
         </Carousel>
       </div>
 
-      <h3>with irregular heights:</h3>
+      <h3>Slides with irregular heights:</h3>
       <div className="demo-wrapper">
         <Carousel slidesToShow={3.5}>
           <CarouselSlide>
@@ -177,6 +177,58 @@ function App() {
         </Carousel>
       </div>
 
+      <h3>Equalizing heights (plus <code>height="100%"</code> on the slide contents):</h3>
+      <div className="demo-wrapper">
+        <Carousel slidesToShow={3.5} equalizeHeights>
+          <CarouselSlide>
+            <div className="demo-content demo-content-height-100-percent">
+              <span className="demo-content-flower">🌸</span>
+              first slide
+            </div>
+          </CarouselSlide>
+          <CarouselSlide>
+            <div className="demo-content demo-content-height-100-percent">
+              <span className="demo-content-flower">💮</span>
+              second slide
+              <br />
+              is much, much taller
+              <br />
+              than the others
+            </div>
+          </CarouselSlide>
+          <CarouselSlide>
+            <div className="demo-content demo-content-height-100-percent">
+              <span className="demo-content-flower">🌺</span>
+              third slide
+            </div>
+          </CarouselSlide>
+          <CarouselSlide>
+            <div className="demo-content demo-content-height-100-percent">
+              <span className="demo-content-flower">🏵️</span>
+              fourth slide
+            </div>
+          </CarouselSlide>
+          <CarouselSlide>
+            <div className="demo-content demo-content-height-100-percent">
+              <span className="demo-content-flower">🌷</span>
+              fifth slide
+            </div>
+          </CarouselSlide>
+          <CarouselSlide>
+            <div className="demo-content demo-content-height-100-percent">
+              <span className="demo-content-flower">🌼</span>
+              sixth slide
+            </div>
+          </CarouselSlide>
+          <CarouselSlide>
+            <div className="demo-content demo-content-height-100-percent">
+              <span className="demo-content-flower">🌹</span>
+              seventh slide
+            </div>
+          </CarouselSlide>
+        </Carousel>
+      </div>
+
       <h2>Instructions</h2>
       <p>
         You can download it, and find more information,{" "}
@@ -209,21 +261,52 @@ function App() {
       <div className="option-details">
         <p>Type: string</p>
         <p>Default: "Go to slide"</p>
-        <p>The accessible text to be added to each dot as an aria-label value; the number of the dot/slide will be appended to the end.</p>
+        <p>The accessible text to be added to each dot as an <code>aria-label</code> value; the number of the dot/slide will be appended to the end.</p>
+      </div>
+
+      <h4>accessibleTextDotsLabel</h4>
+      <div className="option-details">
+        <p>Type: string</p>
+        <p>Default: "Choose slide to display"</p>
+        <p>The accessible text to be added to the dots container as an <code>aria-label</code> value.</p>
       </div>
 
       <h4>accessibleTextNext</h4>
       <div className="option-details">
         <p>Type: string</p>
         <p>Default: "Go to next slide"</p>
-        <p>The accessible text to be added to the Next button as an aria-label value.</p>
+        <p>The accessible text to be added to the Next button as an <code>aria-label</code> value.</p>
       </div>
 
       <h4>accessibleTextPrevious</h4>
       <div className="option-details">
         <p>Type: string</p>
         <p>Default: "Go to previous slide"</p>
-        <p>The accessible text to be added to the Previous button as an aria-label value.</p>
+        <p>The accessible text to be added to the Previous button as an <code>aria-label</code> value.</p>
+      </div>
+
+      <h4>accessibleTextRoledescription</h4>
+      <div className="option-details">
+        <p>Type: string</p>
+        <p>Default: "carousel"</p>
+        <p>The accessible text to be added as a value for the carousel's <code>aria-roledescription</code> property.</p>
+      </div>
+
+      <h4>accessibleTextSlideRoledescription</h4>
+      <div className="option-details">
+        <p>Type: string</p>
+        <p>Default: "slide"</p>
+        <p>The accessible text to be added as a value for each slide's <code>aria-roledescription</code> property.</p>
+      </div>
+
+      <h4>accessibleTextSlideOf</h4>
+      <div className="option-details">
+        <p>Type: string</p>
+        <p>Default: "of"</p>
+        <p>
+          The accessible text to be added to each slide's accessible name, placed between its slide number and the total number of slides.
+          The default is "of", which will produce "4 of 7" if this is the fourth slide out of seven slides.
+        </p>
       </div>
 
       <h4>dots</h4>
@@ -233,6 +316,14 @@ function App() {
         <p>Whether to show the indicator dots below the carousel.</p>
       </div>
 
+      <h4>equalizeHeights</h4>
+      <div className="option-details">
+        <p>Type: boolean</p>
+        <p>Default: false</p>
+        <p>Whether to try to equalize the heights of the slides. If true, each slide container will have an equal height, but 
+          you may also need to put <code>height="100%"</code> on the contents of each slide to get proper visuals.</p>
+      </div>
+
       <h4>finite</h4>
       <div className="option-details">
         <p>Type: boolean</p>
@@ -240,8 +331,8 @@ function App() {
         <p>
           Whether the carousel is finite. With a finite carousel, when the user
           advances past the last slide using the buttons, it won't scroll back
-          to the beginning. (Same for advancing backwards past the first slide;
-          it won't scroll to the end.)
+          to the beginning. (Similarly, when advancing backwards past the first slide,
+          a finite carousel won't scroll to the end.)
         </p>
       </div>
 
@@ -268,7 +359,7 @@ function App() {
       <div className="option-details">
         <p>Type: number</p>
         <p>Default: 1</p>
-        <p>How many slides will be shown at a time. Decimals are allowed.</p>
+        <p>How many slides will be shown at a time. Decimal values are allowed.</p>
       </div>
     </div>
   );
