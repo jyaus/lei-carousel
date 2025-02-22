@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/lei-carousel/static/css/main.be896302.css",
-    "main.js": "/lei-carousel/static/js/main.692465ac.js",
+    "main.js": "/lei-carousel/static/js/main.db4bfee0.js",
     "static/js/453.f6cf5b60.chunk.js": "/lei-carousel/static/js/453.f6cf5b60.chunk.js",
     "index.html": "/lei-carousel/index.html",
     "main.be896302.css.map": "/lei-carousel/static/css/main.be896302.css.map",
-    "main.692465ac.js.map": "/lei-carousel/static/js/main.692465ac.js.map",
+    "main.db4bfee0.js.map": "/lei-carousel/static/js/main.db4bfee0.js.map",
     "453.f6cf5b60.chunk.js.map": "/lei-carousel/static/js/453.f6cf5b60.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.be896302.css",
-    "static/js/main.692465ac.js"
+    "static/js/main.db4bfee0.js"
   ]
 }
