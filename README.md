@@ -36,23 +36,49 @@ or rearranging DOM nodes.
 #### accessibleTextDot
 
 _string_. (default: "Go to slide")
-The accessible text to be added to each dot as an aria-label value; the number of the dot/slide will be appended to the end.
+The accessible text to be added to each dot as an `aria-label` value; the number of the dot/slide will be appended to the end.
+
+#### accessibleTextDotsLabel
+      
+_string_. (default: "Choose slide to display")
+The accessible text to be added to the dots container as an `aria-label` value.
 
 #### accessibleTextNext
 
 _string_. (default: "Go to next slide")
-The accessible text to be added to the Next button as an aria-label value.
+The accessible text to be added to the Next button as an `aria-label` value.
 
 #### accessibleTextPrevious
 
 _string_. (default: "Go to previous slide")
-The accessible text to be added to the Previous button as an aria-label value.
+The accessible text to be added to the Previous button as an `aria-label` value.
+
+#### accessibleTextRoledescription
+
+_string_. (default: "carousel")
+The accessible text to be added as a value for the carousel's `aria-roledescription` property.
+      
+#### accessibleTextSlideRoledescription
+      
+_string_. (default: "slide")
+The accessible text to be added as a value for each slide's `aria-roledescription` property.
+      
+#### accessibleTextSlideOf
+_string_. (default: "of")       
+The accessible text to be added to each slide's accessible name, placed between its slide number and the total number of slides.
+The default is "of", which will produce "4 of 7" if this is the fourth slide out of seven slides.
 
 #### dots
 
 _boolean_. (default: false)
 Whether to show the indicator dots below the carousel.
 
+#### equalizeHeights
+      
+_boolean_. (default: false)
+Whether to try to equalize the heights of the slides. If true, each slide container will have an equal height, but 
+you may also need to put `height="100%"` on the contents of each slide to get proper visuals.
+      
 #### finite
 
 _boolean_. (default: false)
